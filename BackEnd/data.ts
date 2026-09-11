@@ -25,13 +25,13 @@ export const courses : Course[] = [
             slots : [
                 {
                     day : "M",
-                    start : "8:00",
-                    end : "9:30"
+                    start : "08:00",
+                    end : "09:30"
                 },
                 {
                     day : "W",
-                    start : "8:00",
-                    end : "9:30"
+                    start : "08:00",
+                    end : "09:30"
                 }
             ]
         },
@@ -41,13 +41,13 @@ export const courses : Course[] = [
             slots : [
                 {
                     day : "S",
-                    start : "8:00",
-                    end : "9:30"
+                    start : "08:00",
+                    end : "09:30"
                 },
                 {
                     day : "T",
-                    start : "8:00",
-                    end : "9:30"
+                    start : "08:00",
+                    end : "09:30"
                 }
             ]
         }
@@ -78,13 +78,13 @@ export const courses : Course[] = [
                 slots : [
                     {
                         day : "S",
-                        start : "1:00",
-                        end : "2:30"
+                        start : "13:00",
+                        end : "14:30"
                     },
                     {
                         day : "T",
-                        start : "1:00",
-                        end : "2:30"
+                        start : "13:00",
+                        end : "14:30"
                     }
                 ]
             }
