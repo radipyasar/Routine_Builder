@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+
+const API_BASE = import.meta.env.VITE_API_BASE ?? "/api";
 import Timetable from "./Timetable";
 import './App.css';
 
@@ -29,7 +31,7 @@ function App() {
 
     useEffect(() => {
 
-        fetch("http://localhost:3000/courses")
+        fetch(`${API_BASE}/courses`)
             .then(response => response.json())
             .then(data => {
                 setCourses(data);
@@ -70,7 +72,7 @@ function App() {
         }
 
 
-        fetch("http://localhost:3000/solve", {
+        fetch(`${API_BASE}/solve`, {
 
             method: "POST",
 
