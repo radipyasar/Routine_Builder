@@ -26,7 +26,7 @@ app.post("/solve",(req:Request,res:Response) => {
     routines.sort(
       (a,b) => scoreRoutine(b) - scoreRoutine(a)
     );
-    res.json(routines.slice(0,200));
+    res.json(routines.slice(0,1000));
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Could not generate routines" });
