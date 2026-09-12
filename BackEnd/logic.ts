@@ -33,6 +33,36 @@ export function sectionClash(s1:Section,s2:Section):boolean{
     return false;
 }
 
+export const PAIRED_COURSES = ["CSE332", "EEE111", "CSE438"];
+
+function splitId(id:string){
+    const dash = id.lastIndexOf("-");
+    return { code : id.slice(0,dash), number : id.slice(dash+1) };
+}
+
+function baseCode(code:string):string{
+    return code.endsWith("L") ? code.slice(0,-1) : code;
+}
+
+export function pairMismatch(s1:Section,s2:Section):boolean{
+    const a = splitId(s1.id);
+    const b = splitId(s2.id);
+
+    if(a.code === b.code){
+        return false;
+    }
+
+    const base = baseCode(a.code);
+    if(base !== baseCode(b.code)){
+        return false;
+    }
+    if(!PAIRED_COURSES.includes(base)){
+        return false;
+    }
+
+    return a.number !== b.number;
+}
+
 export function findRoutines(selected:Course[]):Section[][]{
     const results:Section[][] = [];
     const picked:Section[] = [];
@@ -51,7 +81,7 @@ export function findRoutines(selected:Course[]):Section[][]{
         for(const section of course.sections){
             let clashes = false;
             for(const p of picked){
-                if(sectionClash(p,section)){
+                if(sectionClash(p,section) || pairMismatch(p,section)){
                     clashes = true;
                     break;
                 }
@@ -69,6 +99,16 @@ export function findRoutines(selected:Course[]):Section[][]{
     return results;
 }
 
+export function daysUsed(routine:Section[]):number{
+    const days = new Set<string>();
+    for(const section of routine){
+        for(const slot of section.slots){
+            days.add(slot.day);
+        }
+    }
+    return days.size;
+}
+
 export function scoreRoutine(routine:Section[]):number{
     let earliest = 24*60;
     for(const section of routine){
@@ -79,5 +119,8 @@ export function scoreRoutine(routine:Section[]):number{
             }
         }
     }
-    return earliest;
+
+    const dayBonus = (7 - daysUsed(routine)) * 10000;
+
+    return dayBonus + earliest;
 }
