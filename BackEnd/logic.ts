@@ -109,6 +109,13 @@ export function daysUsed(routine:Section[]):number{
     return days.size;
 }
 
+export function dayRank(days:number):number{
+    if(days>=4){
+        return days-4;
+    }
+    return 10 + (4-days);
+}
+
 export function scoreRoutine(routine:Section[]):number{
     let earliest = 24*60;
     for(const section of routine){
@@ -120,7 +127,7 @@ export function scoreRoutine(routine:Section[]):number{
         }
     }
 
-    const dayBonus = (7 - daysUsed(routine)) * 10000;
+    const rank = dayRank(daysUsed(routine));
 
-    return dayBonus + earliest;
+    return (100 - rank) * 10000 + earliest;
 }
